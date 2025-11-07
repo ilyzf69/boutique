@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { supabaseServer } from "../../../lib/supabase-server";
+import supabaseServer from "../../../lib/supabase-server";
 import Header from "../../../components/Header";
 import ProductCard from "../../../components/ProductCard";
 import AddToCart from "./ui/AddToCart";
@@ -20,9 +20,9 @@ export default async function ProductRouter({ searchParams }) {
     return (
       <>
         <Header />
-        <main className="mx-auto max-w-screen-xl px-4 py-8">
+        <main className="mx-auto max-w-7xl px-4 py-8">
           {!p || error ? (
-            <div className="mx-auto max-w-screen-md p-8">
+            <div className="mx-auto max-w-3xl p-8">
               <h1 className="text-xl font-bold">Produit introuvable.</h1>
               <p className="text-gray-600">Slug demandé : <code>{slug || "(aucun)"}</code></p>
               <a className="underline mt-4 inline-block" href="/product">← Retour à la boutique</a>
