@@ -4,7 +4,7 @@ export default function Hero(){
     <section className="rounded-3xl border"
       style={{background:"linear-gradient(90deg,#fff0f5 0%,#fff8f0 50%,#fff0fa 100%)"}}
     >
-      <div className="mx-auto max-w-screen-xl grid md:grid-cols-2 gap-6 p-8 md:p-12">
+      <div className="mx-auto max-w-7xl grid md:grid-cols-2 gap-6 p-8 md:p-12">
         <div className="order-2 md:order-1 flex flex-col justify-center">
           <h1 className="text-4xl md:text-5xl font-bold">5 univers musc <span className="text-brand-rose">&</span> lentilles</h1>
           <p className="mt-3 text-gray-700">Nouveautés parfumées & lentilles cosmétiques.</p>

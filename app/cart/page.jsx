@@ -13,7 +13,7 @@ export default function CartPage(){
   if(!items.length) return <div className="p-8">Votre panier est vide.</div>;
 
   return (
-    <div className="mx-auto max-w-screen-md p-6 space-y-6">
+    <div className="mx-auto max-w-3xl p-6 space-y-6">
       <h1 className="text-2xl font-bold">Panier</h1>
       <ul className="space-y-4">
         {items.map(({product,qty})=>(

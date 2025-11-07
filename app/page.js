@@ -10,7 +10,7 @@ export default async function Home(){
   return (
     <>
       <Header/>
-      <main className="mx-auto max-w-screen-xl px-4 py-8">
+      <main className="mx-auto max-w-7xl px-4 py-8">
         <Hero/>
         <section id="best" className="mt-12">
           <h2 className="text-3xl font-bold text-center">Meilleures Ventes</h2>
