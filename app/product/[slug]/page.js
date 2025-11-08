@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import supabaseServer from "../../../lib/supabase-server";
+import { supabaseServer } from "../../../lib/supabase-server";
 import Header from "../../../components/Header";
 import ProductCard from "../../../components/ProductCard";
 import AddToCart from "./ui/AddToCart";
