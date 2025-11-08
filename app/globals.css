@@ -8,3 +8,12 @@
 
 body { background: var(--background); color: var(--foreground); font-family: system-ui, Arial, sans-serif; }
 img { display:block; max-width:100%; object-fit:cover; }
+
+/* Accent doré subtil */
+.border-gold { border: 1px solid color-mix(in srgb, var(--color-brand-gold) 45%, #ffffff); }
+.gold-gradient { background: linear-gradient(135deg, #fff8e6 0%, #fff 60%); }
+.btn-gold { background: var(--brand-gold); color: white; border: 1px solid var(--brand-gold); }
+.btn-rose { background: var(--brand-rose-500); color: white; border: 1px solid var(--brand-rose-500); }
+/* bouton principal sombre avec liseré or */
+.btn-primary { background:#000; color:#fff; border-color:#000; }
+.btn { border:1px solid #e5e7eb; }

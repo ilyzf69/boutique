@@ -1,22 +1,28 @@
 "use client";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-const Ctx = createContext(null);
+import { createContext, useContext, useMemo, useState } from "react";
+const CartCtx = createContext();
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]); // [{product, qty}]
-  useEffect(()=>{ try{ const s=localStorage.getItem("cart"); if(s) setItems(JSON.parse(s)); }catch{}},[]);
-  useEffect(()=>{ try{ localStorage.setItem("cart", JSON.stringify(items)); }catch{}},[items]);
 
-  const add = (product, qty=1) => setItems(prev=>{
-    const i = prev.findIndex(it=>it.product.id===product.id);
-    if(i>=0){ const copy=[...prev]; copy[i]={...copy[i], qty:copy[i].qty+qty}; return copy; }
-    return [...prev,{product,qty}];
-  });
-  const setQty = (id, q) => setItems(p=>p.map(it=>it.product.id===id?{...it, qty:Math.max(1,q)}:it));
-  const remove = id => setItems(p=>p.filter(it=>it.product.id!==id));
-  const total = useMemo(()=>items.reduce((s,it)=>s+it.product.price*it.qty,0),[items]);
-  const count = useMemo(()=>items.reduce((s,it)=>s+it.qty,0),[items]);
+  const add = (product, qty=1)=>{
+    setItems(prev=>{
+      const i = prev.findIndex(x=>x.product.id===product.id);
+      if(i>=0){ const cp=[...prev]; cp[i]={...cp[i], qty: cp[i].qty + qty}; return cp; }
+      return [...prev, {product, qty}];
+    });
+  };
+  const remove = (id)=> setItems(prev=> prev.filter(x=>x.product.id!==id));
+  const clear = ()=> setItems([]);
 
-  return <Ctx.Provider value={{items,add,setQty,remove,total,count}}>{children}</Ctx.Provider>;
+  const { totalQty, totalPrice } = useMemo(()=>{
+    const t = items.reduce((acc, it)=> {
+      const q = Number(it.qty)||0; const p = Number(it.product?.price)||0;
+      acc.qty += q; acc.price += q*p; return acc;
+    }, {qty:0, price:0});
+    return { totalQty: t.qty, totalPrice: t.price };
+  }, [items]);
+
+  return <CartCtx.Provider value={{items, add, remove, clear, totalQty, totalPrice}}>{children}</CartCtx.Provider>;
 }
-export const useCart = ()=>{ const v=useContext(Ctx); if(!v) throw new Error("CartProvider missing"); return v; };
+export const useCart = ()=> useContext(CartCtx);
