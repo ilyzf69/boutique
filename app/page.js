@@ -1,3 +1,7 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { supabaseServer } from "../lib/supabase-server";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
