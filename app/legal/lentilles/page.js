@@ -1,10 +1,15 @@
-export default function Lentilles(){ return (
-  <div className="mx-auto max-w-3xl p-6 space-y-3">
-    <h1 className="text-2xl font-bold">Infos d’utilisation — Lentilles (TEST)</h1>
-    <ul className="list-disc pl-6 space-y-1 text-gray-700">
-      <li>Produit cosmétique non correcteur.</li>
-      <li>Hygiène stricte, ne pas partager, retirer en cas de gêne.</li>
-      <li>Respecter la durée de port.</li>
-    </ul>
-  </div>
-);}
+export default function LentillesInfo() {
+  return (
+    <div className="prose max-w-none">
+      <h1>Informations d’utilisation — Lentilles cosmétiques (TEST)</h1>
+      <ul className="list-disc pl-6 space-y-1">
+        <li>Produit cosmétique non correcteur — ne remplace pas un dispositif médical.</li>
+        <li>Hygiène stricte (mains propres, étui propre, solution fraîche).</li>
+        <li>Ne pas partager, ne pas dormir avec, retirer en cas de gêne.</li>
+        <li>Respecter la durée de port recommandée par le fabricant.</li>
+        <li>Si irritation persistante : retirer et consulter un professionnel.</li>
+      </ul>
+      <p className="mt-2">Sur les fiches “lentilles”, une case à cocher confirme que ces infos ont été lues.</p>
+    </div>
+  );
+}

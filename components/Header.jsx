@@ -22,20 +22,23 @@ export default function Header() {
 
   useEffect(() => {
     function onDoc(e){ if(!menuRef.current?.contains(e.target)) setOpen(false); }
-    document.addEventListener("click", onDoc); return () => document.removeEventListener("click", onDoc);
+    document.addEventListener("click", onDoc); 
+    return () => document.removeEventListener("click", onDoc);
   }, []);
-
-  async function signOut() { await supabase.auth.signOut(); setOpen(false); }
 
   const cartLabel = totalQty > 0
     ? `${t.cart} (${totalQty}) — ${(totalPrice/100).toFixed(2)} €`
     : t.cartEmpty;
 
+  async function signOut() { await supabase.auth.signOut(); setOpen(false); }
+
   return (
     <header className="sticky top-0 z-50 border-b bg-white/70 header-blur">
       <div className="mx-auto max-w-screen-xl px-4 py-3 flex items-center justify-between gap-3">
-        <Link href="/" className="text-2xl font-bold">
-          <span className="text-brand-gold">Layali</span><span className="text-brand-rose">Cosmétique</span>
+        {/* --- MARQUE, plus lisible --- */}
+        <Link href="/" className="text-2xl font-bold leading-none">
+          <span className="text-brand-gold">Layali</span>{" "}
+          <span className="text-brand-rose">Cosmétic</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -45,12 +48,34 @@ export default function Header() {
           <Link href="/legal" className="hover:underline"><Trans k="legal" /></Link>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <LanguageSwitcher />
 
-          {user ? (
+          {/* Déconnecté : 2 boutons même style (blanc + contour) */}
+          {!user && (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/auth/signin"
+                className="rounded-full px-4 py-2.5 border bg-white hover:bg-gray-50"
+              >
+                <Trans k="signin" />
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="rounded-full px-4 py-2.5 border bg-white hover:bg-gray-50"
+              >
+                <Trans k="signup" />
+              </Link>
+            </div>
+          )}
+
+          {/* Connecté : menu compte déroulant */}
+          {user && (
             <div className="relative" ref={menuRef}>
-              <button onClick={()=>setOpen(o=>!o)} className="rounded-full border px-4 py-2.5 bg-white hover:bg-gray-50">
+              <button
+                onClick={()=>setOpen(o=>!o)}
+                className="rounded-full border px-4 py-2.5 bg-white hover:bg-gray-50"
+              >
                 <Trans k="account" />
               </button>
               {open && (
@@ -63,16 +88,6 @@ export default function Header() {
                   </button>
                 </div>
               )}
-            </div>
-          ) : (
-            <div className="inline-flex items-center gap-2">
-              <Link href="/auth/signin" className="rounded-full px-4 py-2.5 border bg-white hover:bg-gray-50">
-                <Trans k="signin" />
-              </Link>
-              <Link href="/auth/signup" className="rounded-full px-4 py-2.5 border bg-brand-gold text-white hover:opacity-95"
-                style={{ backgroundColor: "var(--brand-gold)" }}>
-                <Trans k="signup" />
-              </Link>
             </div>
           )}
 

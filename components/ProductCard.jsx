@@ -16,8 +16,14 @@ const SIZE = (cat)=>({
 }[cat] ?? "");
 
 export default function ProductCard({ p }) {
+  const slug = typeof p?.slug === "string" ? p.slug.trim() : "";
+  const href = slug ? `/product/${encodeURIComponent(slug)}` : "/product";
+
+  // Si pas de slug -> on n'autorise pas la navigation
+  const Wrapper = slug ? Link : "div";
+
   return (
-    <Link className="card overflow-hidden block hover:shadow" href={`/product/${p.slug}`}>
+    <Wrapper className="card overflow-hidden block hover:shadow" href={href}>
       <img src={p.image || ""} alt={p.name} className="h-56 w-full object-cover" />
       <div className="p-4 space-y-2">
         <div className="text-xs text-gray-500"><Trans k={LABEL(p.category)} /></div>
@@ -26,6 +32,6 @@ export default function ProductCard({ p }) {
         </div>
         <div className="text-sm">{(p.price/100).toFixed(2)} €</div>
       </div>
-    </Link>
+    </Wrapper>
   );
 }
